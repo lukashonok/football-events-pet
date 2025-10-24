@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\EventHandler;
+use App\Notifications\MockEventNotifier;
 use App\StatisticsManager;
 
 header('Content-Type: application/json');
