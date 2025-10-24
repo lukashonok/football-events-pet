@@ -7,11 +7,11 @@ Simple application for handling football events - recruitment task.
 The following business requirements must be met by the solution:
 
 ### Core business requirements
-- [ x ] System accurately logs and updates statistics upon receiving a **goal** event, including details such as scorer, assisting player, team, minute, and match ID.
-- [ x ] System accurately logs and updates records upon receiving a **foul** event, including details such as player at fault, affected player, team, match ID, and precise time of the foul.
+- [x] System accurately logs and updates statistics upon receiving a **goal** event, including details such as scorer, assisting player, team, minute, and match ID.
+- [x] System accurately logs and updates records upon receiving a **foul** event, including details such as player at fault, affected player, team, match ID, and precise time of the foul.
 ```
 - [ ] All event data is permanently stored and retrievable
-- [ x ] Relevant statistics are calculated and maintained for both event types
+- [x] Relevant statistics are calculated and maintained for both event types
 - [ ] Clients receive information about all events in real-time
 - [ ] Data integrity is maintained at all times
 - [ ] Historical data is preserved and accessible
