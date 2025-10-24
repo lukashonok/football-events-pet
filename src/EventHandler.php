@@ -15,10 +15,15 @@ class EventHandler
     private StatisticsManager $statisticsManager;
     private EventNotifierInterface $eventNotifier;
     
-    public function __construct(string $storagePath, ?StatisticsManager $statisticsManager = null, ?MockEventNotifier $eventNotifier = null)
-    {
-        $this->storage = new FileStorage($storagePath);
-        $this->statisticsManager = $statisticsManager ?? new StatisticsManager(__DIR__ . '/../storage/statistics.txt');
+    public function __construct(
+        string $eventFile,
+        ?StatisticsManager $statisticsManager = null,
+        ?MockEventNotifier $eventNotifier = null
+    ) {
+        $this->storage = new FileStorage($eventFile);
+        $storagePath = dirname($eventFile);
+        $this->statisticsManager = $statisticsManager ?? new StatisticsManager("{$storagePath}/statistics.txt");
+
         $this->eventNotifier = $eventNotifier ?? new MockEventNotifier();
     }
     

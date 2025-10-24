@@ -37,4 +37,17 @@ class FileStorage
             return json_decode($line, true);
         }, array_filter($lines));
     }
+
+    public function getAllRaw(): string
+    {
+        if (!file_exists($this->filePath)) {
+            return "";
+        }
+        return file_get_contents($this->filePath);
+    }
+
+    public function saveAllRaw(string $data)
+    {
+        file_put_contents($this->filePath, $data, LOCK_EX);
+    }
 }

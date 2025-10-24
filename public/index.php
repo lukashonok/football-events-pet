@@ -3,8 +3,15 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\EventHandler;
-use App\Notifications\MockEventNotifier;
 use App\StatisticsManager;
+
+$storage_path = __DIR__ . '/../storage';
+
+$env = $_SERVER['HTTP_X_ENV'] ?? $_GET['x-env'] ?? 'PROD';
+
+if ($env == "TEST") {
+    $storage_path = __DIR__ . '/../storage_test';
+}
 
 header('Content-Type: application/json');
 
@@ -22,7 +29,7 @@ if ($method === 'POST' && $path === '/event') {
         exit;
     }
     
-    $handler = new EventHandler(__DIR__ . '/../storage/events.txt');
+    $handler = new EventHandler("$storage_path/events.txt");
     
     try {
         $result = $handler->handleEvent($data);
@@ -33,10 +40,11 @@ if ($method === 'POST' && $path === '/event') {
         echo json_encode(['error' => $e->getMessage()]);
     }
 } elseif ($method === 'GET' && $path === '/statistics') {
-    $statsManager = new StatisticsManager(__DIR__ . '/../storage/statistics.txt');
+    $statsManager = new StatisticsManager("$storage_path/statistics.txt");
     
     $matchId = $_GET['match_id'] ?? null;
     $teamId = $_GET['team_id'] ?? null;
+
     
     try {
         if ($matchId && $teamId) {

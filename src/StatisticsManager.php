@@ -7,12 +7,10 @@ use App\Events\BaseEvent;
 class StatisticsManager
 {
     private FileStorage $storage;
-    private string $statsFile;
     
     public function __construct(string $statsFile = '../storage/statistics.txt')
     {
         $this->storage = new FileStorage($statsFile);
-        $this->statsFile = $statsFile;
         
         $directory = dirname($statsFile);
         if (!is_dir($directory)) {
@@ -49,16 +47,12 @@ class StatisticsManager
     
     private function getStatistics(): array
     {
-        if (!file_exists($this->statsFile)) {
-            return [];
-        }
-        
-        $content = file_get_contents($this->statsFile);
+        $content = $this->storage->getAllRaw();
         return json_decode($content, true) ?? [];
     }
     
     private function saveStatistics(array $stats): void
     {
-        file_put_contents($this->statsFile, json_encode($stats, JSON_PRETTY_PRINT), LOCK_EX);
+        $this->storage->saveAllRaw(json_encode($stats, JSON_PRETTY_PRINT));
     }
 }

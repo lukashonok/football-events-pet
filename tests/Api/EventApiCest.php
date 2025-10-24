@@ -9,13 +9,14 @@ class EventApiCest
     public function _before(ApiTester $I)
     {
         // Clean up storage files before each test
-        $I->deleteFile('storage/events.txt');
-        $I->deleteFile('storage/statistics.txt');
+        $I->deleteFile('storage_test/events.txt');
+        $I->deleteFile('storage_test/statistics.txt');
     }
 
     public function testFoulEvent(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('X-ENV', 'TEST');
         $I->sendPOST('/event', [
             'type' => 'foul',
             'player' => 'William Saliba',
@@ -37,6 +38,7 @@ class EventApiCest
     public function testFoulEventWithoutRequiredFields(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('X-ENV', 'TEST');
         $I->sendPOST('/event', [
             'type' => 'foul',
             'player' => 'William Saliba',
@@ -55,6 +57,7 @@ class EventApiCest
     public function testInvalidJson(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('X-ENV', 'TEST');
         $I->sendPOST('/event', 'invalid json');
         
         $I->seeResponseCodeIs(400);
@@ -67,6 +70,7 @@ class EventApiCest
     public function testEventWithoutType(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('X-ENV', 'TEST');
         $I->sendPOST('/event', [
             'player' => 'John Doe',
             'minute' => 23,

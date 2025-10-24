@@ -9,14 +9,15 @@ class StatisticsApiCest
     public function _before(ApiTester $I)
     {
         // Clean up storage files before each test
-        $I->deleteFile('storage/events.txt');
-        $I->deleteFile('storage/statistics.txt');
+        $I->deleteFile('storage_test/events.txt');
+        $I->deleteFile('storage_test/statistics.txt');
     }
 
     public function testGetTeamStatistics(ApiTester $I)
     {
         // First, create some foul events
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('X-ENV', 'TEST');
         $I->sendPOST('/event', [
             'type' => 'foul',
             'player' => 'William Saliba',
@@ -27,6 +28,7 @@ class StatisticsApiCest
         ]);
         
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('X-ENV', 'TEST');
         $I->sendPOST('/event', [
             'type' => 'foul',
             'player' => 'Gabriel Jesus',
@@ -37,6 +39,7 @@ class StatisticsApiCest
         ]);
         
         // Now get team statistics
+        $I->haveHttpHeader('X-ENV', 'TEST');
         $I->sendGET('/statistics?match_id=m1&team_id=arsenal');
         
         $I->seeResponseCodeIs(200);
@@ -54,6 +57,7 @@ class StatisticsApiCest
     {
         // Create foul events for different teams
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('X-ENV', 'TEST');
         $I->sendPOST('/event', [
             'type' => 'foul',
             'player' => 'William Saliba',
@@ -64,6 +68,7 @@ class StatisticsApiCest
         ]);
         
         $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->haveHttpHeader('X-ENV', 'TEST');
         $I->sendPOST('/event', [
             'type' => 'foul',
             'player' => 'Virgil van Dijk',
@@ -74,6 +79,7 @@ class StatisticsApiCest
         ]);
         
         // Get all match statistics
+        $I->haveHttpHeader('X-ENV', 'TEST');
         $I->sendGET('/statistics?match_id=m1');
         
         $I->seeResponseCodeIs(200);

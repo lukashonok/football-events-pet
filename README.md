@@ -10,17 +10,17 @@ The following business requirements must be met by the solution:
 - [x] System accurately logs and updates statistics upon receiving a **goal** event, including details such as scorer, assisting player, team, minute, and match ID.
 - [x] System accurately logs and updates records upon receiving a **foul** event, including details such as player at fault, affected player, team, match ID, and precise time of the foul.
 
-- [ ] All event data is permanently stored and retrievable
-- [x] Relevant statistics are calculated and maintained for both event types
-- [x] Clients receive information about all events in real-time
-- [ ] Data integrity is maintained at all times
-- [ ] Historical data is preserved and accessible
+- [x] All event data is permanently stored and retrievable (Fixed problem with rewriting storage by tests) 
+- [x] Relevant statistics are calculated and maintained for both event types (In tests)
+- [x] Clients receive information about all events in real-time (Describe in next section)
+- [x] Data integrity is maintained at all times (In tests)
+- [x] Historical data is preserved and accessible
 - [ ] System can handle high volume of events
 
 ### Client communication requirements
-- [x] All clients receive event notifications
-- [x] Information is delivered in a timely manner
-- [x] Communication is reliable and consistent
+- [x] All clients receive event notifications (preferably to not send to every client, but send to orchestrating system like rabbitmq/kafka)
+- [x] Information is delivered in a timely manner (see MockEventNotifier)
+- [x] Communication is reliable and consistent (see retries on sending)
 
 ### Recruitment requirements
 - [x] The solution should be provided as a GitHub repository with at least three meaningful commits (repo is public)
