@@ -9,7 +9,7 @@ The following business requirements must be met by the solution:
 ### Core business requirements
 - [x] System accurately logs and updates statistics upon receiving a **goal** event, including details such as scorer, assisting player, team, minute, and match ID.
 - [x] System accurately logs and updates records upon receiving a **foul** event, including details such as player at fault, affected player, team, match ID, and precise time of the foul.
-```
+
 - [ ] All event data is permanently stored and retrievable
 - [x] Relevant statistics are calculated and maintained for both event types
 - [x] Clients receive information about all events in real-time
@@ -27,6 +27,7 @@ The following business requirements must be met by the solution:
 - [x] Some kind of abstraction is allowed to demonstrate the solution over a fully functioning application (EventNotifierInterface for notifications, BaseEvent for events)
 - [x] Try to devote no more than 3 hours to solving the problem - anything you don't have time to do can be written as a plan for further action (you can check by commits)
 - [x] Try not to use AI tools. If you do - write down how you use it. (only for generating comments)
+
 
 ## Requirements
 
