@@ -48,7 +48,7 @@ class EventApiCest
         $I->seeResponseCodeIs(400);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
-            'error' => 'match_id and team_id are required for foul events'
+            'error' => 'match_id are required for foul events' // edited from "match_id and team_id are required for foul events" because now it will cause error on every unpresented field
         ]);
     }
 
