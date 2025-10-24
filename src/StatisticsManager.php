@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\BaseEvent;
+
 class StatisticsManager
 {
     private FileStorage $storage;
@@ -18,23 +20,17 @@ class StatisticsManager
         }
     }
     
-    public function updateTeamStatistics(string $matchId, string $teamId, string $statType, int $value = 1): void
+    public function updateTeamStatistics(BaseEvent $event): void
     {
         $stats = $this->getStatistics();
         
-        if (!isset($stats[$matchId])) {
-            $stats[$matchId] = [];
+        $stats[$event->matchId] ??= [];
+        $stats[$event->matchId][$event->teamId] ??= [];
+
+        foreach ($event->getStatsForUpdate() as $stat => $valueToIncrement) {
+            $stats[$event->matchId][$event->teamId][$stat] ??= 0;
+            $stats[$event->matchId][$event->teamId][$stat] += $valueToIncrement;
         }
-        
-        if (!isset($stats[$matchId][$teamId])) {
-            $stats[$matchId][$teamId] = [];
-        }
-        
-        if (!isset($stats[$matchId][$teamId][$statType])) {
-            $stats[$matchId][$teamId][$statType] = 0;
-        }
-        
-        $stats[$matchId][$teamId][$statType] += $value;
         
         $this->saveStatistics($stats);
     }

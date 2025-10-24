@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\BaseEvent;
+
 class FileStorage
 {
     private string $filePath;
@@ -16,9 +18,9 @@ class FileStorage
         }
     }
     
-    public function save(array $event): void
+    public function appendEvent(BaseEvent $event): void
     {
-        $line = json_encode($event) . PHP_EOL;
+        $line = json_encode($event->getStatsForSave()) . PHP_EOL;
         file_put_contents($this->filePath, $line, FILE_APPEND | LOCK_EX);
     }
     
